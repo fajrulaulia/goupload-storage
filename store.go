@@ -57,7 +57,7 @@ func upload(w http.ResponseWriter, r *http.Request) {
 	w.Write(output)
 }
 
-func webHandler(w http.ResponseWriter, r *http.Request) {
+func preview(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	img, err := os.Open("storage/" + vars["filename"])
 	if err != nil {
@@ -75,6 +75,6 @@ func SetupHandler() {
 
 	r := mux.NewRouter()
 	r.HandleFunc("/upload", upload)
-	r.HandleFunc("/image/{filename}", webHandler)
+	r.HandleFunc("/image/{filename}", preview)
 	log.Fatal(http.ListenAndServe(":8080", r))
 }
